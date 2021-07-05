@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import win32gui, win32con
+import importlib
 
 the_program_to_hide = win32gui.GetForegroundWindow()
 win32gui.ShowWindow(the_program_to_hide , win32con.SW_HIDE)
@@ -62,6 +63,18 @@ def upgrade_pip():
     except Exception as e:
         print(e)
         lb23.config(text=e, fg="red")
+
+def test_import():
+    try:
+        f = user.get()
+        importlib.import_module(f)
+        lb23.config(text=f"{f} does exist", fg="blue")
+
+    except Exception as e:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", f])
+        lb23.config(text=f"{f} Could not be imported but now its installed ", fg="blue")
+        
+        
     
 
 controls_frame = Frame()
@@ -70,7 +83,9 @@ controls_frame.pack()
 install_btn = Button(controls_frame, text="Install", command=install).grid(row=0, column=0, padx=10)
 uninstall_btn = Button(controls_frame, text="Uninstall", command=uninstall).grid(row=0, column=1, padx=10)
 upgrade_btn = Button(controls_frame, text="Upgrade", command=upgrade).grid(row=0, column=2, padx=10)
-upgrade_pip_btn = Button(controls_frame, text="Upgrade PIP", command=upgrade_pip).grid(row=1, column=1, pady=10)
+import_btn = Button(controls_frame, text="Import", command=test_import).grid(row=0, column=3, padx=10)
+upgrade_pip_btn = Button(root, text="Upgrade PIP", command=upgrade_pip).pack(pady=10)
+
 
 global lb23
 lb23 = Label(root, text="Waiting For input")

@@ -6,7 +6,7 @@
 - Upgrading packages (Installing if they are not already)
 - Uninstalling packages 
 - Upgrading pip
-- test importing. (If the module is not on your machine it will auto download.)
+- Test Importing. (If the module is not on your machine it will auto download.)
 
 This app will not open with a console nore will it show a console while Installing, upgrading or uninstalling. It will show errors if one occurs. Please tell me if there are any issues 
 

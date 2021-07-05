@@ -1,9 +1,11 @@
 from tkinter import *
+import tkinter
 import os
 import subprocess
 import sys
 import win32gui, win32con
 import importlib
+from tkinter import Checkbutton
 
 the_program_to_hide = win32gui.GetForegroundWindow()
 win32gui.ShowWindow(the_program_to_hide , win32con.SW_HIDE)
@@ -74,9 +76,15 @@ def test_import():
         subprocess.check_call([sys.executable, "-m", "pip", "install", f])
         lb23.config(text=f"{f} Could not be imported but now its installed ", fg="blue")
         
-        
-    
+var = IntVar()
+def show_console():
+    win32gui.ShowWindow(the_program_to_hide , win32con.SW_SHOW)
 
+    if var.get() == 0:
+        win32gui.ShowWindow(the_program_to_hide , win32con.SW_HIDE)
+
+        
+   
 controls_frame = Frame()
 controls_frame.pack()
 
@@ -90,6 +98,9 @@ upgrade_pip_btn = Button(root, text="Upgrade PIP", command=upgrade_pip).pack(pad
 global lb23
 lb23 = Label(root, text="Waiting For input")
 lb23.pack()
+
+global cbox
+cbox = Checkbutton(root, text="Show Console",variable=var, command = show_console).pack(side=LEFT)
 
 
 root.mainloop()

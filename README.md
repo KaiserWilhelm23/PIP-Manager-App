@@ -7,7 +7,7 @@
 - Uninstalling packages 
 - Upgrading pip
 - Test Importing. (If the module is not on your machine it will auto download.)
-- If you want to show the console click on "show console" in the left hand corner. To hide just uncheck the box
+- If you want to hide the console click on "hide console" in the left hand corner. To unhide just uncheck the box
 - NEW: will build a txt file named ```logs.txt``` and log Installed, Uninstalled and Updated modules
 - NEW: Will build a ```PIP_Manager_startup.bat``` to allow users to copy and past in the Desktop
 - NEW: ```Ctrl+q``` will quit the app.

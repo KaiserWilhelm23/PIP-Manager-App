@@ -1,3 +1,36 @@
+import os
+import time
+import sys
+
+try:
+    import subprocess
+    from tkinter import *
+    from tkinter.ttk import *
+    import os
+    import importlib
+    from ttkthemes import ThemedTk
+    from tkinter.scrolledtext import ScrolledText
+    import _thread
+    from subprocess import Popen, PIPE
+    import json
+    import win32gui, win32con
+
+except Exception as e:
+    print("PIP Manager is unable to start, missinig packsages:")
+    user1 = input("Would you like to install y/n: ")
+
+    if user1 == 'y' or 'Y' or 'yes' or 'Yes':
+        print("=============Installing missing Packages=============")
+        os.system("pip install pywin32")
+        os.system("pip install ttkthemes")
+        pass
+
+    elif user1 == 'n' or 'N' or 'no' or 'No':
+        print("PIP Manager will close in 5 seconds:")
+        time.sleep(5)
+        sys.exit()
+
+
 import subprocess
 from tkinter import *
 from tkinter.ttk import *
@@ -9,8 +42,6 @@ import _thread
 from subprocess import Popen, PIPE
 import json
 import win32gui, win32con
-
-
 
 root = ThemedTk(theme='breeze')
 tabControl = Notebook(root)

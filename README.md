@@ -20,3 +20,9 @@ This verison is a massive update. It has updated the UI and many other things, h
 
 
 ![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/Capture.PNG?raw=true)
+
+
+# Devlopers 
+
+Lead Python Dev: Will Payne 
+Co Lead Python Dev: Cole Bohanon

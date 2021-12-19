@@ -25,4 +25,5 @@ This verison is a massive update. It has updated the UI and many other things, h
 # Devlopers 
 
 Lead Python Dev: Will Payne 
+
 Co Lead Python Dev: Cole Bohanon

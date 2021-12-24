@@ -17,6 +17,8 @@ This verison is a massive update. It has updated the UI and many other things, h
 - Built-In Console | This console is a live feed of the CMD but simplified for easier reading 
 - 'settings' tab | This has two current settings and they are saved in a json file for saved configurations 
 - Threading (Developed by Cole Bohanon) | This prevents the freezing of the app and allows for a live feed to the CMD
+- Package List Tab (Displays all packages and colorizes the outdated ones in red, right click on the package to get a menue of "Upgrade or Uninstall" Be sure to select the Package before you do this.)
+- Auto-Py-to-EXE function in the settings tab. 
 
 
 ![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/Capture.PNG?raw=true)

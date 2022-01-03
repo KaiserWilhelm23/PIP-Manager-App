@@ -29,3 +29,9 @@ This verison is a massive update. It has updated the UI and many other things, h
 Lead Python Dev: Will Payne 
 
 Co Lead Python Dev: Cole Bohanon
+
+# Saftey/Guidelines 
+
+- We do not recommend installing any packages you are not familiar with.
+- We do not recommend installing packages that may require log in information, unless its trusted by the Python Community 
+

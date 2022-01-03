@@ -1,19 +1,20 @@
 
- 
+ <h1 align="center" "PIP Manager"/>
 <div align="center">
-  <a href="#">
-    <img src="https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/" alt="Python version" />
+  <a href="https://www.python.org">
+    <img src="https://img.shields.io/badge/Python-3.8.6-blue" alt="Python version" />
   </a>
-  <a href="https://github.com/sundowndev/PhoneInfoga/releases">
+  <a href="https://github.com/blaze005/PIP-Manager-App/releases">
     <img src="https://img.shields.io/badge/Version-3.0-green" alt="Latest version" />
   </a>
-  <a href="https://github.com/sundowndev/PhoneInfoga/blob/master/LICENSE">
+  <a href="https://github.com/blaze005/PIP-Manager-App/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License" />
   </a>
 </div>
 
 
-# PIP-Manager-App Version 3
+# About
+PIP Manager is designed to make Python Package handling easier by just a click of a button!!
 
 # Available Features
 

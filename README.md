@@ -1,11 +1,5 @@
-<div align="center">
-  <img src="https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/"/>
-  ![Release3](https://img.shields.io/badge/Version-3.0-green)
-  ![MIT](https://img.shields.io/badge/License-MIT-yellow)
-  
- </div>
- 
 
+ 
 <div align="center">
   <a href="#">
     <img src="https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/" alt="Python version" />

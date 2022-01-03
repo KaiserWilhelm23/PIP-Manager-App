@@ -214,8 +214,7 @@ root.geometry("488x390")
 root.resizable(0, 0)
 
 mixer.init()
-mixer.music.load("startup.mp3")
-mixer.music.play()
+
 
 
 tab1 = Frame(tabControl)

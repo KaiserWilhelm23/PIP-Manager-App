@@ -1,5 +1,5 @@
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
-[![Release3](https://img.shields.io/badge/Version-3.0-green)
+[!Release3](https://img.shields.io/badge/Version-3.0-green)
 
 # PIP-Manager-App Version 3
 

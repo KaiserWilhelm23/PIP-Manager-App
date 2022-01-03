@@ -6,6 +6,19 @@
  </div>
  
 
+<div align="center">
+  <a href="#">
+    <img src="https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/" alt="Python version" />
+  </a>
+  <a href="https://github.com/sundowndev/PhoneInfoga/releases">
+    <img src="https://img.shields.io/badge/Version-3.0-green" alt="Latest version" />
+  </a>
+  <a href="https://github.com/sundowndev/PhoneInfoga/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License" />
+  </a>
+</div>
+
+
 # PIP-Manager-App Version 3
 
 # Available Features

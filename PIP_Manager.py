@@ -4,11 +4,13 @@ import sys
 
 os.system("pip list -o > output.txt")
 
-
 def build_cogs():
     dinct = {
         "darkmode": "on",
-        "cmd": "off"
+        "cmd": "off",
+        "cli": "off",
+        "install_auto": "yes"
+
     }
 
     cogs = json.dumps(dinct, indent=2)
@@ -16,6 +18,120 @@ def build_cogs():
         f.write(cogs)
 
     print("Built cogs.json....")
+
+
+def cli():
+    
+    
+    user = input("""
+ \033[32m┌──(\033[36mPIP-MAnager\033[32m)
+ └─$\033[37m """).split()
+
+
+    try:
+        if user[0] == "install":
+            try:
+                if user[1] == None:
+                        print("install needs package")
+
+            except:
+                print("\033[31mcmd install needs package \033[32m>> \033[33m install [package]")
+                cli()
+
+            
+            print(f"installing: {user[1]}")
+            print("==="*20)
+            os.system(f"pip install {user[1]}")
+            print("==="*20)
+            cli()
+
+
+        elif user[0] == "uninstall":
+            try:
+                if user[1] == None:
+                    print("error")
+
+            except:
+                print("\033[31mcmd uninstall needs package \033[32m>> \033[33m uninstall [package]")
+                cli()
+
+            print(f"unistalling: {user[1]}")
+            print("==="*20)
+            os.system(f"pip uninstall {user[1]} -y")
+            print("==="*20)
+            cli()
+
+        elif user[0] == "upgrade":
+            try:
+                if user[1] == None:
+                    print("error")
+
+            except:
+                print("\033[31mcmd upgrade needs package \033[32m>> \033[33m upgrade [package]")
+                cli()
+
+            print(f"upgrading: {user[1]}")
+            print("==="*20)
+            os.system(f"pip install {user[1]} --upgrade")
+            print("==="*20)
+            cli()
+
+
+
+        elif user[0] == "help":
+            print(
+                """\033[33m
+  Commands:
+  install [package]   -> installs said package 
+  uninstall [package] -> uninstalls said package
+  upgrade [package]   -> upgrades said package
+  list                -> lists all installed packages
+  cli off             -> Turns off CLI Mode to start app in GUI Mode
+
+                """
+            )
+            cli()
+
+        elif user[0] == "list":
+            os.system("pip list")
+            cli()
+
+        elif user[0] == "clear":
+            os.system("clear")
+            cli()
+
+        elif user[0] == "exit":
+            sys.exit()
+
+        elif user[0] == "cli" and user[1] == "off":
+            try:
+                with open('cogs.json', 'r') as f:
+                    data = json.load(f)
+
+                data['cli'] = 'off'
+
+                with open("cogs.json", "w") as jsonFile:
+                    json.dump(data, jsonFile)
+
+                print("\033[32m CLI Mode is now off")
+                cli()
+
+            except:
+                print("\033[31m cmd cli needs to be 'cli off'")
+                cli()
+            
+           
+        else:
+            print(f"\033[31mcmd error: \033[33m'{user[0]}'\033[31m not found")
+            cli()
+
+
+
+    except:
+        cli()
+
+
+
 
 
 try:
@@ -31,16 +147,19 @@ try:
     from subprocess import Popen, PIPE
     import json
     import win32gui, win32con
+    from pygame import mixer
+
 
 except Exception as e:
 
     print("PIP Manager is unable to start, missinig packsages:")
-    user1 = input("Would you like to install y/n: ")
+    user1 = input("Would you like to install y/n/cli: ")
 
     if user1 == 'y':
         print("=============Installing missing Packages=============")
         os.system("pip install pywin32")
         os.system("pip install ttkthemes")
+        os.system("pip install pygame")
         build_cogs()
 
 
@@ -48,6 +167,11 @@ except Exception as e:
         print("PIP Manager will close in 5 seconds:")
         time.sleep(5)
         sys.exit()
+
+    elif user1 == "cli":
+        os.system("clear")
+        cli()
+        
 
 import subprocess
 from tkinter import *
@@ -62,12 +186,37 @@ import json
 import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
+from pygame import mixer
+
+os.system("clear")
+
+try:
+    with open("cogs.json", 'r') as f:
+        cogs1 = json.loads(f.read())
+
+        if cogs1["cli"] == "on":
+            cli()
+            
+
+        elif cogs1["cli"] == "off":
+            pass
+        print("[]")
+    print(cogs1)
+
+except Exception as e:
+    build_cogs()
+
 
 root = ThemedTk(theme='breeze')
 tabControl = Notebook(root)
 root.title("PIP Manager App V.3")
 root.geometry("488x390")
 root.resizable(0, 0)
+
+mixer.init()
+mixer.music.load("startup.mp3")
+mixer.music.play()
+
 
 tab1 = Frame(tabControl)
 tab2 = Frame(tabControl)
@@ -464,6 +613,7 @@ settings_frame.pack()
 
 var1 = IntVar()
 var2 = IntVar()
+var3 =IntVar()
 
 
 def clear_console(event):
@@ -497,11 +647,38 @@ try:
 except Exception as e:
     build_cogs()
 
+
+def cli_mode():
+    if var3.get() == 1:
+        
+        with open('cogs.json', 'r') as f:
+            data = json.load(f)
+        data['cli'] = 'on'
+
+        with open("cogs.json", "w") as jsonFile:
+            json.dump(data, jsonFile)
+        
+    elif var3.get() == 0:
+        with open('cogs.json', 'r') as f:
+            data = json.load(f)
+
+        data['cli'] = 'off'
+
+        with open("cogs.json", "w") as jsonFile:
+            json.dump(data, jsonFile)
+
+        
+
+
 dark_mode1 = Checkbutton(settings_frame, text="Darkmode", variable=var1, onvalue=1, offvalue=0, command=dark_mode).grid(
     row=1, column=3)
+
 cmd_off = Checkbutton(settings_frame, text="CMD Off", variable=var2, onvalue=1, offvalue=0, command=turn_cmd_off).grid(
     row=2, column=3)
-autoexe = Button(settings_frame, text="Auto Py to EXE", command=lambda: command("auto_py_to_exe")).grid(row=3, column=3)
+
+cli_mode1 = Checkbutton(settings_frame, text="CLI",variable=var3, onvalue=1, offvalue=0, command=cli_mode).grid(
+    row = 3, column=3)
+autoexe = Button(settings_frame, text="Auto Py to EXE", command=lambda: command("auto_py_to_exe")).grid(row=4, column=3)
 
 
 def auto_py_to_exe():
@@ -527,7 +704,13 @@ def auto_py_to_exe():
     _thread.exit()
 
 
+
+
 root.bind("<Control-Key-q>", stop_all)
 root.bind("<Control-Key-x>", clear_console)
+
+
+
+
 
 root.mainloop()

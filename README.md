@@ -35,6 +35,7 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 
 This app does require some third party packages. But don't worry the app will detect if you have them or not and it will ask you if you want to install them in a CMD. From here you can also start in CLI mode instead of installing the packages. NOTE: features are limited in CLI Mode. 
 Here are the required packages:
+
 ```ttkthemes```
 
 ```win32gui & win32con```

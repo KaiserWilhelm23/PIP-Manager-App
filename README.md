@@ -49,4 +49,5 @@ Co Lead Python Dev: Cole Bohanon
 
 - We do not recommend installing any packages you are not familiar with.
 - We do not recommend installing packages that may require log in information, unless its trusted by the Python Community 
+- We are not resopnsible for faulty or virus enbeded packages that are installed through this Software. 
 

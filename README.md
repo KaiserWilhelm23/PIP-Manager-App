@@ -22,18 +22,23 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 - Uninstalling packages 
 - Upgrading pip
 - Test Importing. (If the module is not on your machine it will auto download.)
-
-
-# Verison 3 information
-
-This verison is a massive update. It has updated the UI and many other things, here are the new fetures 
-
 - Dark mode | can be enabled in the 'settings' tab (Defaulted)
 - Built-In Console | This console is a live feed of the CMD but simplified for easier reading 
 - 'settings' tab | This has two current settings and they are saved in a json file for saved configurations 
 - Threading (Developed by Cole Bohanon) | This prevents the freezing of the app and allows for a live feed to the CMD
 - Package List Tab (Displays all packages and colorizes the outdated ones in red, right click on the package to get a menue of "Upgrade or Uninstall" Be sure to select the Package before you do this.)
 - Auto-Py-to-EXE function in the settings tab. 
+
+
+
+# Requirements
+
+This app does require some third party packages. But don't worry the app will detect if you have them or not and it will ask you if you want to install them in a CMD. From here you can also start in CLI mode instead of installing the packages. NOTE: features are limited in CLI Mode. 
+Here are the required packages:
+```ttkthemes```
+
+```win32gui & win32con```
+
 
 
 ![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/Capture.PNG?raw=true)

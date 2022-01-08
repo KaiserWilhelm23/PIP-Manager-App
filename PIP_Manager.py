@@ -152,7 +152,7 @@ try:
 
 except Exception as e:
 
-    print("PIP Manager is unable to start, missinig packsages:")
+    print("PIP Manager is unable to start, missing packages:")
     user1 = input("Would you like to install y/n/cli: ")
 
     if user1 == 'y':

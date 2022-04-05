@@ -17,7 +17,7 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 
 # Announcements 
 - PIP Manager may be renaimed to PPMS (Python Package Managment Software) 
-- 3.2 will be release is confirmed.
+- 3.2 release is confirmed.
 
 
 

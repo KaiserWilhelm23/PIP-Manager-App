@@ -92,7 +92,6 @@ def test_import():
 def stop_all(event):
     root.destroy()
 
-
    
 controls_frame = Frame()
 controls_frame.pack()

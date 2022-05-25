@@ -57,6 +57,8 @@ Lead Python Dev: Will Payne
 
 Co Lead Python Dev: Cole Bohanon
 
+Maintainer: Samuel T
+
 # Saftey/Guidelines 
 
 - We do not recommend installing any packages you are not familiar with.

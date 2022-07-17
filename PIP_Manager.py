@@ -183,6 +183,7 @@ import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
 
+
 os.system("clear")
 
 
@@ -218,7 +219,7 @@ except Exception as e:
 
 root = Tk()
 tabControl = Notebook(root)
-root.title("PIP Manager App V.3")
+root.title("PIP Manager App V.4 Beta")
 root.geometry("488x390")
 root.resizable(0, 0)
 
@@ -302,11 +303,7 @@ def command(command):
         except:
             print("error")
 
-    elif command == "metadata_tool":
-        try:
-            _thread.start_new_thread(metadata_tool, ())
-        except:
-            print("error")
+    
 
     elif command == "update_package_list":
         try:
@@ -320,10 +317,10 @@ def command(command):
 
 
 def update_package_list():
-    root.title("PIP Manager App V.3 (Updating Package List)")
+    root.title("PIP Manager App V.4 Beta (Updating Package List)")
     os.system("cd important/ && pip list -o > output.txt && cd ..")
     messagebox.showinfo(title="Completed", message="Package List Updated")
-    root.title("PIP Manager App V.3")
+    root.title("PIP Manager App V.4 Beta")
     
 
 
@@ -413,13 +410,11 @@ def test_import():
 def stop_all(event):
     root.destroy()
 
-def metadata_tool():
-    os.system("python MetaData-Tool.py")
+
 
 # create a menu
 file_menu = Menu(menubar,tearoff=False)
 file_menu.add_command(label='Auto-Py-To-EXE',command=lambda: command("auto_py_to_exe"), accelerator="| F1")
-file_menu.add_command(label="MetaData Tool", command=lambda: command("metadata_tool"), accelerator="| F2")
 file_menu.add_command(label="Update Pacakge List", command=lambda: command("update_package_list"), accelerator="| Ctr+Shift+u")
 file_menu.add_separator()
 file_menu.add_command(label='Exit',command=root.destroy, accelerator="| Ctrl+q")
@@ -489,6 +484,8 @@ def MetaData_Window():
     info_win = Tk()
     info_win.title(f"MetaData on {f}")
     info_win.geometry("400x200")
+    info_win.attributes('-alpha',0.9)
+
 
     
 

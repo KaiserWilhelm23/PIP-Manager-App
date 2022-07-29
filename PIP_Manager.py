@@ -1,4 +1,4 @@
-version1 = "3.0"
+version1 = "4.0 Beta 2"
 
 import os
 import time

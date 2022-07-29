@@ -442,6 +442,8 @@ def app_info():
         open('PIP_Manager.py', 'wb').write(r.content)
         f = showinfo(title="Complete!!", message=f"PIP Manager is updated to: {vr}!!! Please restart PIP Manager Clicking OK will shut down the app")
         
+        if f == "ok":
+            sys.exit()
 
 
 

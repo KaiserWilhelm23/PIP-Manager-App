@@ -440,7 +440,10 @@ def app_info():
         r = requests.get(url, allow_redirects=True)
 
         open('PIP_Manager.py', 'wb').write(r.content)
-        showinfo(title="Complete!!", message=f"PIP Manager is updated to: {vr}!!! Please restart PIP Manager")
+        f = showinfo(title="Complete!!", message=f"PIP Manager is updated to: {vr}!!! Please restart PIP Manager Clicking OK will shut down the app")
+        
+
+
 
     Label(info_win, text="PIP Manger App Info").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')

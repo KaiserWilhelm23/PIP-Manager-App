@@ -1,4 +1,4 @@
-version1 = "4.0 Beta 2"
+version1 = "3.0"
 
 import os
 import time
@@ -433,11 +433,14 @@ def app_info():
 
     def update():
         import requests
+        from tkinter.messagebox import showinfo
+
 
         url = 'https://raw.githubusercontent.com/blaze005/PIP-Manager-App/main/PIP_Manager.py'
         r = requests.get(url, allow_redirects=True)
 
         open('PIP_Manager.py', 'wb').write(r.content)
+        showinfo(title="Complete!!", message=f"PIP Manager is updated to: {vr}!!! Please restart PIP Manager")
 
     Label(info_win, text="PIP Manger App Info").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')
@@ -447,7 +450,7 @@ def app_info():
     Separator(info_win ,orient='horizontal').pack(fill='x')
 
     if vr != version1:
-        Button(info_win, text="Update").pack()
+        Button(info_win, text="Update", command=update).pack()
 
     else: 
         Label(info_win, text="You are up to date").pack()

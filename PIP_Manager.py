@@ -1,3 +1,5 @@
+version1 = "4.0 Beta 2"
+
 import os
 import time
 import sys
@@ -182,6 +184,8 @@ import json
 import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
+from ttkthemes import ThemedTk
+
 
 
 os.system("clear")
@@ -217,7 +221,7 @@ try:
 except Exception as e:
     build_cogs()
 
-root = Tk()
+root = ThemedTk()
 tabControl = Notebook(root)
 root.title("PIP Manager App V.4 Beta")
 root.geometry("488x390")
@@ -410,12 +414,43 @@ def test_import():
 def stop_all(event):
     root.destroy()
 
+def app_info():
+    
+    import platform
+
+
+    import urllib.request, json
+
+    jsongithub_link = "https://blaze005.github.io/items.json"
+    with urllib.request.urlopen(jsongithub_link) as url: 
+        json_data = json.loads(url.read().decode())
+        vr = json_data["PM-release"]
+    
+    info_win = Tk()
+    info_win.title("App Info")
+    info_win.geometry("300x250")
+    info_win.resizable(0, 0)
+
+    Label(info_win, text="PIP Manger App Info").pack()
+    Separator(info_win ,orient='horizontal').pack(fill='x')
+    Label(info_win, text=f"App Version: {version1}").pack()
+    Label(info_win, text=f"Current Release: {vr}").pack()
+    Label(info_win, text=f"Python Version: {platform.python_version()}").pack()
+    Separator(info_win ,orient='horizontal').pack(fill='x')
+
+    if vr != version1:
+        Button(info_win, text="Update").pack()
+
+    else: 
+        Label(info_win, text="You are up to date").pack()
+
 
 
 # create a menu
 file_menu = Menu(menubar,tearoff=False)
 file_menu.add_command(label='Auto-Py-To-EXE',command=lambda: command("auto_py_to_exe"), accelerator="| F1")
 file_menu.add_command(label="Update Pacakge List", command=lambda: command("update_package_list"), accelerator="| Ctr+Shift+u")
+file_menu.add_command(label="App Info", command=app_info)
 file_menu.add_separator()
 file_menu.add_command(label='Exit',command=root.destroy, accelerator="| Ctrl+q")
 menubar.add_cascade(label="Quick Access",menu=file_menu)
@@ -484,7 +519,6 @@ def MetaData_Window():
     info_win = Tk()
     info_win.title(f"MetaData on {f}")
     info_win.geometry("400x200")
-    info_win.attributes('-alpha',0.9)
 
 
     
@@ -630,6 +664,28 @@ lists.bind("<Button-3>", do_popup)
 
 
 
+def dark_mode():
+    if var1.get() == 1:
+        root.config(theme='equilux')
+        lists.config(foreground='green', background='black', selectbackground='#19849E')
+        with open('important/cogs.json', 'r') as f:
+            data = json.load(f)
+        data['darkmode'] = 'on'
+
+        with open("important/cogs.json", "w") as jsonFile:
+                json.dump(data, jsonFile)
+
+    elif var1.get() == 0:
+        root.config(theme='breeze')
+        lists.config(foreground='black', background='white', selectbackground='#19849E')
+        with open('important/cogs.json', 'r') as f:
+            data = json.load(f)
+            
+        data['darkmode'] = 'off'
+
+        with open("important/cogs.json", "w") as jsonFile:
+                json.dump(data, jsonFile)
+
 the_program_to_hide = win32gui.GetForegroundWindow()
 win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
 
@@ -673,7 +729,6 @@ settings_frame = Frame(tab4)
 settings_frame.pack()
 
 
-global var4
 var1 = IntVar()
 var2 = IntVar()
 var3 =IntVar()
@@ -703,6 +758,14 @@ def clear_console(event):
 try:
     with open("important/cogs.json", 'r') as f:
         cogs = json.loads(f.read())
+
+        if cogs["darkmode"] == "on":
+            root.config(theme='equilux')
+            var1.set(1)
+
+        elif cogs["darkmode"] == "off":
+            root.config(theme='breeze')
+            var1.set(0)
         print("[]")
         if cogs["cmd"] == 'on':
             win32gui.ShowWindow(the_program_to_hide, win32con.SW_SHOW)
@@ -769,6 +832,8 @@ cmd_off = Checkbutton(settings_frame, text="CMD Off", variable=var2, onvalue=1, 
 cli_mode1 = Checkbutton(settings_frame, text="CLI",variable=var3, onvalue=1, offvalue=0, command=cli_mode).grid(column=0, row=1, ipadx=82, pady=5)
 
 auto_check_package_version = Checkbutton(settings_frame, text="Auto Update Package List", variable=var4, onvalue=1, offvalue=0, command=ac).grid(column=0, row=2, ipadx=23, pady=5)
+
+dark_mode1 = Checkbutton(settings_frame, text="Dark Mode", variable=var1, onvalue=1, offvalue=0, command=dark_mode).grid(column=0, row=3, ipadx=60, pady=5)
     
 autoexe = Button(settings_frame, text="Auto Py to EXE", command=lambda: command("auto_py_to_exe")).grid(row=5, column=0, pady=5, ipadx=10)
 

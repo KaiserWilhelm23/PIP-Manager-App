@@ -1,4 +1,4 @@
-version1 = "4.0 Beta 2"
+version1 = "3.0"
 
 import os
 import time
@@ -430,6 +430,14 @@ def app_info():
     info_win.title("App Info")
     info_win.geometry("300x250")
     info_win.resizable(0, 0)
+
+    def update():
+        import requests
+
+        url = 'https://raw.githubusercontent.com/blaze005/PIP-Manager-App/main/PIP_Manager.py'
+        r = requests.get(url, allow_redirects=True)
+
+        open('PIP_Manager.py', 'wb').write(r.content)
 
     Label(info_win, text="PIP Manger App Info").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')

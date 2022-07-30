@@ -16,7 +16,9 @@
 PIP Manager is designed to make Python Package handling easier by just a click of a button!!
 
 # Announcements 
-- Version 4 Beta 1 (Windows) is now out
+- Version 4 Beta 2 (Windows) is now out 
+- Beta 2 Adds:
+1. Update PIP Manager App | Quick Access -> App Info -> Update 
 
 
 # Available Features

@@ -1,9 +1,12 @@
-version1 = "4.0 Beta 2"
+version1 = "4.0 Beta 1"
 
 import os
 import time
 import sys
 from tkinter import *
+
+
+
 
 path = "important/"
 
@@ -12,6 +15,8 @@ try:
 except OSError as error: 
     pass
 
+
+# building the config to save user settings 
 def build_cogs():
     dinct = {
         "cmd": "off",
@@ -28,7 +33,7 @@ def build_cogs():
     print("Built cogs.json....")
 
 
-
+# cli mode enabled or improper libraries
 def cli():
     
     
@@ -152,7 +157,7 @@ try:
     import win32gui, win32con
 
 
-
+# check for missing packages and install on prompt 
 except Exception as e:
 
     print("PIP Manager is unable to start, missing packages:")
@@ -185,11 +190,11 @@ import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
 from ttkthemes import ThemedTk
+import urllib.request
 
 
 
 os.system("clear")
-
 
 
 try:
@@ -221,16 +226,29 @@ try:
 except Exception as e:
     build_cogs()
 
+
+
+# build the GUI 
+
 root = ThemedTk()
 tabControl = Notebook(root)
 root.title("PIP Manager App V.4 Beta")
 root.geometry("488x390")
 root.resizable(0, 0)
 
+jsongithub_link = "https://blaze005.github.io/items.json"
+with urllib.request.urlopen(jsongithub_link) as url: 
+    json_data = json.loads(url.read().decode())
+    vr = json_data["PM-release"]
+
+
+if vr != version1:
+    root.title("PIP Manager App V.4 Beta (Update Available)")
 
 menubar = Menu(root)
 root.config(menu=menubar)
 
+# add tabs
 tab1 = Frame(tabControl)
 tab2 = Frame(tabControl)
 tab4 = Frame(tabControl)
@@ -252,7 +270,7 @@ user = Entry(tab1)
 user.pack(pady=10)
 
 
-# Core Codes
+# Threads/ Multithreading
 def command(command):
     if command == "install":
         try:
@@ -431,6 +449,11 @@ def app_info():
     info_win.geometry("300x250")
     info_win.resizable(0, 0)
 
+
+
+#
+# Update function to allow the user to update the app
+#
     def update():
         import requests
         from tkinter.messagebox import showinfo

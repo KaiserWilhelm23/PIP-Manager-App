@@ -66,15 +66,11 @@ Maintainer: Samuel T
 # Contributing
 Contributions are always welcome - just:
 
-Fork the project.
-
-Commit your changes on a feature/fix branch.
-
-Push.
-
-Submit a pull request.
-
-Have your changes merged :)
+1. Fork the project.
+2. Commit your changes on a feature/fix branch.
+3. Push.
+4. Submit a pull request.
+5. Have your changes merged :)
 
 
 # Saftey/Guidelines 

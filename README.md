@@ -63,6 +63,16 @@ Co Lead Python Dev: Cole Bohanon
 
 Maintainer: Samuel T
 
+# Contributing
+Contributions are always welcome - just:
+
+Fork the project.
+Commit your changes on a feature/fix branch.
+Push.
+Submit a pull request.
+Have your changes merged :)
+
+
 # Saftey/Guidelines 
 
 - We do not recommend installing any packages you are not familiar with.

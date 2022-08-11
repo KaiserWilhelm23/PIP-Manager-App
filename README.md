@@ -11,6 +11,7 @@
   </a>
 </div>
 
+``` git clone https://github.com/blaze005/PIP-Manager-App.git```
 
 # About
 PIP Manager is designed to make Python Package handling easier by just a click of a button!!

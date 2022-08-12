@@ -23,7 +23,6 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 
 # BETA Known Issues: 
 1. All packages may appear out of date when Auto Update Package list is enabled 
-2. Update pip manager in App Info may be slow starting up. 
 
 
 # Available Features

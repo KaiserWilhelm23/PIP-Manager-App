@@ -15,6 +15,7 @@
 
 # About
 PIP Manager is designed to make Python Package handling easier by just a click of a button!!
+
 *All Windows 10 releases work on Windows 11
 
 # Announcements 

@@ -1,4 +1,4 @@
-version1 = "4.0 Beta 3"
+version1 = "4.0 Beta 2"
 
 import os
 import time
@@ -219,7 +219,7 @@ try:
         cogs = json.loads(f.read())
         print("[]")
         if cogs["ac"] == 'on':
-            os.system("cd important/ && pip list -> output.txt && cd ..")
+            os.system("cd important/ && pip list -> output.txt")
         elif cogs['ac'] == 'off':
             pass
     print(cogs)
@@ -475,6 +475,7 @@ def app_info():
     Label(info_win, text=f"App Version: {version1}").pack()
     Label(info_win, text=f"Current Release: {vr}").pack()
     Label(info_win, text=f"Python Version: {platform.python_version()}").pack()
+    Label(info_win, text=f"OS: {platform.system()}").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')
 
     if vr != version1:
@@ -622,16 +623,8 @@ entry = Entry(pkg_list, textvariable="Search")
 entry.pack()
 entry.bind('<KeyRelease>', Scankey)
 
-scrollbar = Scrollbar(pkg_list)
-scrollbar.pack( side = RIGHT, fill = Y)
-
-
-lists = Listbox(pkg_list, width=100, height=10, selectmode=SINGLE, yscrollcommand = scrollbar.set)
-lists.config(foreground='black', background='white', selectbackground='#19849E')
-lists.pack(pady=10)
-scrollbar.config( command = lists.yview )
-
-
+lists = Listbox(pkg_list, width=100, height=10, selectmode=SINGLE)
+lists.pack()
 
 installed_packages = pkg_resources.working_set
 installed_packages_list = sorted(["%s==%s" % (i.key, i.version)
@@ -643,7 +636,7 @@ for i in installed_packages2_list:
     sortedPackages.append(str(i).split(" ")[0])
 
 try:
-    file = open('important/output.txt', 'r')
+    file = open('output.txt', 'r')
 except:
     print("Cannot find file :/")
 
@@ -661,16 +654,9 @@ while chars:
 
     print(line[0])
 
-try:
-    outdatedPackages.pop(0)
-    outdatedPackages.pop(0)
-    outdatedPackages.sort()
-except Exception as e:
-    print(e)
-    os.system("pip list -> output.txt")
-    outdatedPackages.pop(0)
-    outdatedPackages.pop(0)
-    outdatedPackages.sort()
+outdatedPackages.pop(0)
+outdatedPackages.pop(0)
+outdatedPackages.sort()
 
 for x in range(len(sortedPackages)):
     lists.insert("end", sortedPackages[x])
@@ -838,6 +824,7 @@ def cli_mode():
         with open("important/cogs.json", "w") as jsonFile:
             json.dump(data, jsonFile)
 
+
 def ac():
     if var4.get() == 1:
         q = messagebox.askyesno(title="Are you sure?", message="Enabling this feature will slow the apps start up time.", icon='warning')
@@ -862,7 +849,7 @@ def ac():
 
         with open("important/cogs.json", "w") as jsonFile:
             json.dump(data, jsonFile)
-        
+ 
 
 
 

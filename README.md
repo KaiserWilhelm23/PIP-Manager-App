@@ -30,7 +30,7 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 
 
 # Version 4 Known Issues: 
-None Curently
+None Currently
 
 
 # Available Features

@@ -19,12 +19,18 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 *All Windows 10 releases work on Windows 11
 
 # Announcements 
-- Version 4 Beta 2 (Windows) is now out 
-- Beta 2 Adds:
-1. Update PIP Manager App | Quick Access -> App Info -> Update 
+- Version 4 (Windows) is now out 
+- Version 4 adds:
 
-# BETA Known Issues: 
-1. All packages may appear out of date when Auto Update Package list is enabled 
+1. Quick Access Menu bar
+
+2. Update PIP Manager App Source Code | Quick Access -> App Info -> Update 
+
+3. MetaData Tool in the Package List Tab, -> Select Package -> Right click -> Click on Package Info
+
+
+# Version 4 Known Issues: 
+None Curently
 
 
 # Available Features
@@ -40,6 +46,9 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 - Threading (Developed by Cole Bohanon) | This prevents the freezing of the app and allows for a live feed to the CMD
 - Package List Tab (Displays all packages and colorizes the outdated ones in red, right click on the package to get a menue of "Upgrade or Uninstall" Be sure to select the Package before you do this.)
 - Auto-Py-to-EXE function in the settings tab. 
+- MetaData Tool 
+- Quick Access Menu Bar
+- Updating PIP Manager from within the GUI
 
 
 

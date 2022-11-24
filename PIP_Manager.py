@@ -1,39 +1,27 @@
-version1 = "4.0 Beta 2"
+version1 = "4.0 Beta 3"
 
 import os
 import time
 import sys
-from tkinter import *
 
+#os.system("pip list -o > output.txt")
 
-
-
-path = "important/"
-
-try: 
-    os.mkdir(path) 
-except OSError as error: 
-    pass
-
-
-# building the config to save user settings 
 def build_cogs():
     dinct = {
+        "darkmode": "on",
         "cmd": "off",
         "cli": "off",
-        "install_auto": "yes",
-        "ac": "on",
+        "install_auto": "yes"
 
     }
 
     cogs = json.dumps(dinct, indent=2)
-    with open("important/cogs.json", 'w') as f:
+    with open("cogs.json", 'w') as f:
         f.write(cogs)
 
     print("Built cogs.json....")
 
 
-# cli mode enabled or improper libraries
 def cli():
     
     
@@ -119,12 +107,12 @@ def cli():
 
         elif user[0] == "cli" and user[1] == "off":
             try:
-                with open('important/cogs.json', 'r') as f:
+                with open('cogs.json', 'r') as f:
                     data = json.load(f)
 
                 data['cli'] = 'off'
 
-                with open("important/cogs.json", "w") as jsonFile:
+                with open("cogs.json", "w") as jsonFile:
                     json.dump(data, jsonFile)
 
                 print("\033[32m CLI Mode is now off")
@@ -145,6 +133,9 @@ def cli():
         cli()
 
 
+
+
+
 try:
 
     import subprocess
@@ -152,12 +143,15 @@ try:
     from tkinter.ttk import *
     import os
     import importlib
+    from ttkthemes import ThemedTk
+    from tkinter.scrolledtext import ScrolledText
     import _thread
+    from subprocess import Popen, PIPE
     import json
     import win32gui, win32con
+    from pygame import mixer
 
 
-# check for missing packages and install on prompt 
 except Exception as e:
 
     print("PIP Manager is unable to start, missing packages:")
@@ -166,6 +160,8 @@ except Exception as e:
     if user1 == 'y':
         print("=============Installing missing Packages=============")
         os.system("pip install pywin32")
+        os.system("pip install ttkthemes")
+        os.system("pip install pygame")
         build_cogs()
 
 
@@ -184,21 +180,20 @@ from tkinter import *
 from tkinter.ttk import *
 import os
 import importlib
+from ttkthemes import ThemedTk
+from tkinter.scrolledtext import ScrolledText
 import _thread
+from subprocess import Popen, PIPE
 import json
 import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
-from ttkthemes import ThemedTk
-import urllib.request
-
-
+from pygame import mixer
 
 os.system("clear")
 
-
 try:
-    with open("important/cogs.json", 'r') as f:
+    with open("cogs.json", 'r') as f:
         cogs1 = json.loads(f.read())
 
         if cogs1["cli"] == "on":
@@ -211,50 +206,26 @@ try:
     print(cogs1)
 
 except Exception as e:
-    print(e)
-    build_cogs()
-
-try:
-    with open("important/cogs.json", 'r') as f:
-        cogs = json.loads(f.read())
-        print("[]")
-        if cogs["ac"] == 'on':
-            os.system("cd important/ && pip list -> output.txt")
-        elif cogs['ac'] == 'off':
-            pass
-    print(cogs)
-except Exception as e:
     build_cogs()
 
 
-
-# build the GUI 
-
-root = ThemedTk()
+root = ThemedTk(theme='breeze')
 tabControl = Notebook(root)
-root.title("PIP Manager App V.4 Beta")
+root.title("PIP Manager App V.4.0")
 root.geometry("488x390")
 root.resizable(0, 0)
 
-jsongithub_link = "https://blaze005.github.io/items.json"
-with urllib.request.urlopen(jsongithub_link) as url: 
-    json_data = json.loads(url.read().decode())
-    vr = json_data["PM-release"]
-
-
-if vr != version1:
-    root.title("PIP Manager App V.4 Beta (Update Available)")
+mixer.init()
 
 menubar = Menu(root)
 root.config(menu=menubar)
 
-# add tabs
 tab1 = Frame(tabControl)
 tab2 = Frame(tabControl)
 tab4 = Frame(tabControl)
 
 tabControl.add(tab1, text='Manager')
-tabControl.add(tab2, text="Package List", )
+tabControl.add(tab2, text="Package List")
 
 tabControl.add(tab4, text='Settings')
 tabControl.pack(expand=1, fill="both")
@@ -270,7 +241,7 @@ user = Entry(tab1)
 user.pack(pady=10)
 
 
-# Threads/ Multithreading
+# Core Codes
 def command(command):
     if command == "install":
         try:
@@ -325,44 +296,86 @@ def command(command):
         except:
             print("error")
 
-    
-
     elif command == "update_package_list":
         try:
             _thread.start_new_thread(update_package_list, ())
+
         except:
             print("error")
 
     else:
         raise ValueError("Not a valid command")
 
-
-
 def update_package_list():
-    root.title("PIP Manager App V.4 Beta (Updating Package List)")
-    os.system("cd important/ && pip list -o > output.txt && cd ..")
-    messagebox.showinfo(title="Completed", message="Package List Updated")
-    root.title("PIP Manager App V.4 Beta")
+    root.title("PIP Manager App V.4.0 (Updating package list)")
+    os.system("pip list -o > output.txt")
+    root.title("PIP Manager App V.4.0")
+    messagebox.showinfo(title="Completed", message="Package List Updated. Shutdown and restart PIP Manager to apply changes.")
     
+    
+def app_info():
+    
+    import platform
+
+
+    import urllib.request, json
+
+    jsongithub_link = "https://blaze005.github.io/items.json"
+    with urllib.request.urlopen(jsongithub_link) as url: 
+        json_data = json.loads(url.read().decode())
+        vr = json_data["PM-release"]
+    
+    info_win = Tk()
+    info_win.title("App Info")
+    info_win.geometry("300x250")
+    info_win.resizable(0, 0)
+
+
+
+#
+# Update function to allow the user to update the app
+#
+    def update():
+        import requests
+        from tkinter.messagebox import showinfo
+
+
+        url = 'https://raw.githubusercontent.com/blaze005/PIP-Manager-App/main/PIP_Manager.py'
+        r = requests.get(url, allow_redirects=True)
+
+        open('PIP_Manager.py', 'wb').write(r.content)
+        f = showinfo(title="Complete!!", message=f"PIP Manager is updated to: {vr}!!! Please restart PIP Manager Clicking OK will shut down the app")
+        
+        if f == "ok":
+            sys.exit()
+
+
+
+    Label(info_win, text="PIP Manger App Info").pack()
+    Separator(info_win ,orient='horizontal').pack(fill='x')
+    Label(info_win, text=f"App Version: {version1}").pack()
+    Label(info_win, text=f"Current Release: {vr}").pack()
+    Label(info_win, text=f"Python Version: {platform.python_version()}").pack()
+    Separator(info_win ,orient='horizontal').pack(fill='x')
+
+    if vr != version1:
+        Button(info_win, text="Update", command=update).pack()
+
+    else: 
+        Label(info_win, text="You are up to date").pack()
 
 
 
 def install():
     try:
         f = user.get()
-        if f == "":
-            messagebox.showerror("ERROR", "You must define a package!!")
-        else:
-            text.config(state=NORMAL)
-            output = subprocess.getstatusoutput(f"echo [+] installing: {f}")
-            text.config(state=DISABLED)
-            os.system(f"pip install {f}")
-            text.config(state=NORMAL)
-            output = subprocess.getstatusoutput(f"echo [+] Sucessfully Installed: {f} [Restart Manager to update the list]")
-            text.insert(INSERT, f"{output}\n")
-            text.see("end")
-            text.config(state=DISABLED)
-            _thread.exit()  # Exit running thread cuz it is done
+        os.system(f"pip install {f}")
+        text.config(state=NORMAL)
+        output = subprocess.getstatusoutput(f"echo [+] Sucessfully Installed: {f} [Restart Manager to update the list]")
+        text.insert(INSERT, f"{output}\n")
+        text.see("end")
+        text.config(state=DISABLED)
+        _thread.exit()  # Exit running thread cuz it is done
     except Exception as e:
         print(e)
 
@@ -432,60 +445,6 @@ def test_import():
 def stop_all(event):
     root.destroy()
 
-def app_info():
-    
-    import platform
-
-
-    import urllib.request, json
-
-    jsongithub_link = "https://blaze005.github.io/items.json"
-    with urllib.request.urlopen(jsongithub_link) as url: 
-        json_data = json.loads(url.read().decode())
-        vr = json_data["PM-release"]
-    
-    info_win = Tk()
-    info_win.title("App Info")
-    info_win.geometry("300x250")
-    info_win.resizable(0, 0)
-
-
-
-#
-# Update function to allow the user to update the app
-#
-    def update():
-        import requests
-        from tkinter.messagebox import showinfo
-
-
-        url = 'https://raw.githubusercontent.com/blaze005/PIP-Manager-App/main/PIP_Manager.py'
-        r = requests.get(url, allow_redirects=True)
-
-        open('PIP_Manager.py', 'wb').write(r.content)
-        f = showinfo(title="Complete!!", message=f"PIP Manager is updated to: {vr}!!! Please restart PIP Manager Clicking OK will shut down the app")
-        
-        if f == "ok":
-            sys.exit()
-
-
-
-    Label(info_win, text="PIP Manger App Info").pack()
-    Separator(info_win ,orient='horizontal').pack(fill='x')
-    Label(info_win, text=f"App Version: {version1}").pack()
-    Label(info_win, text=f"Current Release: {vr}").pack()
-    Label(info_win, text=f"Python Version: {platform.python_version()}").pack()
-    Label(info_win, text=f"OS: {platform.system()}").pack()
-    Separator(info_win ,orient='horizontal').pack(fill='x')
-
-    if vr != version1:
-        Button(info_win, text="Update", command=update).pack()
-
-    else: 
-        Label(info_win, text="You are up to date").pack()
-
-
-
 # create a menu
 file_menu = Menu(menubar,tearoff=False)
 file_menu.add_command(label='Auto-Py-To-EXE',command=lambda: command("auto_py_to_exe"), accelerator="| F1")
@@ -520,12 +479,10 @@ def upgrade2():
     try:
         f = selected_item()
         print(f)
-        text.config(state=NORMAL)
-        text.insert(INSERT, f"Upgrading {f}... Please wait \n")
-        text.config(state=DISABLED)
         os.system(f"pip install {f} --upgrade")
         text.config(state=NORMAL)
-        output1 = subprocess.getstatusoutput(f"echo [-] Sucessfully Upgraded: {f}  [Restart Manager to update the list]")
+        output1 = subprocess.getstatusoutput(
+            f"echo [-] Sucessfully Upgraded: {f}  [Restart Manager to update the list]")
         text.insert(INSERT, f"{output1}\n ")
         text.see("end")
         text.config(state=DISABLED)
@@ -540,9 +497,6 @@ def uninstall2():
         print(f)
         os.system(f"pip uninstall {f} -y")
         text.config(state=NORMAL)
-        text.insert(INSERT, f"Uninstalling {f}... Please wait \n")
-        text.config(state=DISABLED)
-        text.config(state=NORMAL)
         output1 = subprocess.getstatusoutput(
             f"echo [-] Sucessfully Uninstalled: {f}  [Restart Manager to update the list]")
         text.insert(INSERT, f"{output1}\n ")
@@ -551,6 +505,7 @@ def uninstall2():
         _thread.exit()
     except Exception as e:
         print(e)
+
 
 def MetaData_Window():
     from importlib import metadata
@@ -584,6 +539,7 @@ Python Version Required: {metadata.metadata(pkg)['Requires-Python']}
     info_box.insert('1.0', pkg_data)
     info_box.config(state=DISABLED)
     info_win.mainloop()
+
 
 def Scankey(event):
     val = event.widget.get()
@@ -654,9 +610,15 @@ while chars:
 
     print(line[0])
 
-outdatedPackages.pop(0)
-outdatedPackages.pop(0)
-outdatedPackages.sort()
+try:
+    outdatedPackages.pop(0)
+    outdatedPackages.pop(0)
+    outdatedPackages.sort()
+
+except Exception as e: 
+    print("Unable to load outdated packages fixing problem....")
+    os.system("pip list -o > output.txt")
+    
 
 for x in range(len(sortedPackages)):
     lists.insert("end", sortedPackages[x])
@@ -671,7 +633,6 @@ m.add_command(label="Upgarde", command=lambda: command("upgrade2"))
 m.add_command(label="Uninstall", command=lambda: command("uninstall2"))
 m.add_separator()
 m.add_command(label="Package Info", command=MetaData_Window)
-m.config(background='white', foreground='black', activebackground='#19849E')
 
 
 def do_popup(event):
@@ -687,29 +648,45 @@ lists.bind("<Button-3>", do_popup)
 
 # settings
 
+with open('cogs.json', 'r') as f:
+    data = json.load(f)
+    mod = data["darkmode"]
+
+if mod == 'on':
+    lists.config(foreground='green', background='black', selectbackground='purple')
+    m.config(background='black', foreground='green', activebackground='purple')
+
+
+elif mod == 'off':
+    lists.config(foreground='black', background='white', selectbackground='#19849E')
+    m.config(background='white', foreground='black', activebackground='#19849E')
 
 
 def dark_mode():
     if var1.get() == 1:
         root.config(theme='equilux')
-        lists.config(foreground='green', background='black', selectbackground='#19849E')
-        with open('important/cogs.json', 'r') as f:
+        with open('cogs.json', 'r') as f:
             data = json.load(f)
         data['darkmode'] = 'on'
 
-        with open("important/cogs.json", "w") as jsonFile:
-                json.dump(data, jsonFile)
+        with open("cogs.json", "w") as jsonFile:
+            json.dump(data, jsonFile)
+        lists.config(foreground='green', background='black', selectbackground='purple')
+        m.config(background='black', foreground='green', activebackground='purple')
 
     elif var1.get() == 0:
         root.config(theme='breeze')
-        lists.config(foreground='black', background='white', selectbackground='#19849E')
-        with open('important/cogs.json', 'r') as f:
+        with open('cogs.json', 'r') as f:
             data = json.load(f)
-            
+
         data['darkmode'] = 'off'
 
-        with open("important/cogs.json", "w") as jsonFile:
-                json.dump(data, jsonFile)
+        with open("cogs.json", "w") as jsonFile:
+            json.dump(data, jsonFile)
+
+        lists.config(foreground='black', background='white', selectbackground='#19849E')
+        m.config(background='white', foreground='black', activebackground='#19849E')
+
 
 the_program_to_hide = win32gui.GetForegroundWindow()
 win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
@@ -718,23 +695,23 @@ win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
 def turn_cmd_off():
     if var2.get() == 1:
         win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
-        with open('important/cogs.json', 'r') as f:
+        with open('cogs.json', 'r') as f:
             data = json.load(f)
 
         data['cmd'] = 'off'
 
-        with open("important/cogs.json", "w") as jsonFile:
+        with open("cogs.json", "w") as jsonFile:
             json.dump(data, jsonFile)
 
 
     elif var2.get() == 0:
         win32gui.ShowWindow(the_program_to_hide, win32con.SW_SHOW)
-        with open('important/cogs.json', 'r') as f:
+        with open('cogs.json', 'r') as f:
             data = json.load(f)
 
         data['cmd'] = 'on'
 
-        with open("important/cogs.json", "w") as jsonFile:
+        with open("cogs.json", "w") as jsonFile:
             json.dump(data, jsonFile)
 
 
@@ -753,24 +730,9 @@ text.pack()
 settings_frame = Frame(tab4)
 settings_frame.pack()
 
-
 var1 = IntVar()
 var2 = IntVar()
 var3 =IntVar()
-var4 = IntVar()
-
-
-try:
-    with open("important/cogs.json", 'r') as f:
-        cogs = json.loads(f.read())
-        print("[]")
-        if cogs["ac"] == 'on':
-            var4.set(1)
-        elif cogs['ac'] == 'off':
-            var4.set(0)     
-    print(cogs)
-except Exception as e:
-    build_cogs()
 
 
 def clear_console(event):
@@ -779,9 +741,9 @@ def clear_console(event):
     text.config(state=DISABLED)
 
 
-
+global cogs
 try:
-    with open("important/cogs.json", 'r') as f:
+    with open("cogs.json", 'r') as f:
         cogs = json.loads(f.read())
 
         if cogs["darkmode"] == "on":
@@ -808,63 +770,41 @@ except Exception as e:
 def cli_mode():
     if var3.get() == 1:
         
-        with open('important/cogs.json', 'r') as f:
+        with open('cogs.json', 'r') as f:
             data = json.load(f)
         data['cli'] = 'on'
 
-        with open("important/cogs.json", "w") as jsonFile:
+        with open("cogs.json", "w") as jsonFile:
             json.dump(data, jsonFile)
         
     elif var3.get() == 0:
-        with open('important/cogs.json', 'r') as f:
+        with open('cogs.json', 'r') as f:
             data = json.load(f)
 
         data['cli'] = 'off'
 
-        with open("important/cogs.json", "w") as jsonFile:
+        with open("cogs.json", "w") as jsonFile:
             json.dump(data, jsonFile)
 
-
-def ac():
-    if var4.get() == 1:
-        q = messagebox.askyesno(title="Are you sure?", message="Enabling this feature will slow the apps start up time.", icon='warning')
-
-        if q == True:
-            print("1")
-            with open('important/cogs.json', 'r') as f:
-                data = json.load(f)
-            data['ac'] = 'on'
-
-            with open("important/cogs.json", "w") as jsonFile:
-                json.dump(data, jsonFile)
-        elif q == False:
-            print("o")
-            var4.set(0)
         
-    elif var4.get() == 0:
-        with open('important/cogs.json', 'r') as f:
-            data = json.load(f)
-
-        data['ac'] = 'off'
-
-        with open("important/cogs.json", "w") as jsonFile:
-            json.dump(data, jsonFile)
- 
 
 
+dark_mode1 = Checkbutton(settings_frame, text="Darkmode", variable=var1, onvalue=1, offvalue=0, command=dark_mode).grid(
+    row=1, column=3)
 
-cmd_off = Checkbutton(settings_frame, text="CMD Off", variable=var2, onvalue=1, offvalue=0, command=turn_cmd_off).grid(column=0, row=0, ipadx=67, pady=5)
+cmd_off = Checkbutton(settings_frame, text="CMD Off", variable=var2, onvalue=1, offvalue=0, command=turn_cmd_off).grid(
+    row=2, column=3)
 
-cli_mode1 = Checkbutton(settings_frame, text="CLI",variable=var3, onvalue=1, offvalue=0, command=cli_mode).grid(column=0, row=1, ipadx=82, pady=5)
+cli_mode1 = Checkbutton(settings_frame, text="CLI",variable=var3, onvalue=1, offvalue=0, command=cli_mode).grid(
+    row = 3, column=3)
+autoexe = Button(settings_frame, text="Auto Py to EXE", command=lambda: command("auto_py_to_exe")).grid(row=4, column=3)
 
-auto_check_package_version = Checkbutton(settings_frame, text="Auto Update Package List", variable=var4, onvalue=1, offvalue=0, command=ac).grid(column=0, row=2, ipadx=23, pady=5)
+app_info = Button(settings_frame, text="App Info", command=app_info).grid(row=5, column=3)
 
-dark_mode1 = Checkbutton(settings_frame, text="Dark Mode", variable=var1, onvalue=1, offvalue=0, command=dark_mode).grid(column=0, row=3, ipadx=60, pady=5)
-    
-autoexe = Button(settings_frame, text="Auto Py to EXE", command=lambda: command("auto_py_to_exe")).grid(row=5, column=0, pady=5, ipadx=10)
+
 
 def auto_py_to_exe():
-    with open("important/cogs.json", 'r') as f:
+    with open("cogs.json", 'r') as f:
         f = json.loads(f.read())
 
         if f["install_auto"] == "no":
@@ -875,7 +815,7 @@ def auto_py_to_exe():
 
                 f['install_auto'] = 'yes'
 
-                with open("important/cogs.json", "w") as jsonFile:
+                with open("cogs.json", "w") as jsonFile:
                     json.dump(f, jsonFile)
 
             else:
@@ -886,20 +826,14 @@ def auto_py_to_exe():
     _thread.exit()
 
 
-    
-def aptoexe(event):
-    command("auto_py_to_exe")
-
-def metadata_tool2(event):
-    command("metadata_tool")
-
 def quick_upl(event):
     command("update_package_list")
 
 root.bind("<Control-Key-q>", stop_all)
 root.bind("<Control-Key-x>", clear_console)
-root.bind("<F1>", aptoexe)
-root.bind("<F2>", metadata_tool2)
 root.bind("<Control-U>", quick_upl)
+
+
+
 
 root.mainloop()

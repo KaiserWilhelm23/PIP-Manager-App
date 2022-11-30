@@ -1,4 +1,4 @@
-version1 = "4.0"
+version1 = "4.1"
 
 import os
 import time
@@ -149,7 +149,6 @@ try:
     from subprocess import Popen, PIPE
     import json
     import win32gui, win32con
-    from pygame import mixer
 
 
 except Exception as e:
@@ -161,7 +160,6 @@ except Exception as e:
         print("=============Installing missing Packages=============")
         os.system("pip install pywin32")
         os.system("pip install ttkthemes")
-        os.system("pip install pygame")
         build_cogs()
 
 
@@ -188,7 +186,6 @@ import json
 import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
-from pygame import mixer
 
 os.system("clear")
 
@@ -215,7 +212,6 @@ root.title("PIP Manager App V.4.0")
 root.geometry("488x390")
 root.resizable(0, 0)
 
-mixer.init()
 
 menubar = Menu(root)
 root.config(menu=menubar)
@@ -369,6 +365,9 @@ def app_info():
 def install():
     try:
         f = user.get()
+        output = subprocess.getstatusoutput(f"echo [/] Installing: {f}")
+        text.config(state=NORMAL)
+        text.insert(INSERT, f"{output}\n")
         os.system(f"pip install {f}")
         text.config(state=NORMAL)
         output = subprocess.getstatusoutput(f"echo [+] Sucessfully Installed: {f} [Restart Manager to update the list]")
@@ -383,6 +382,9 @@ def install():
 def uninstall():
     try:
         f = user.get()
+        output = subprocess.getstatusoutput(f"echo [/] Uninstalling: {f}")
+        text.config(state=NORMAL)
+        text.insert(INSERT, f"{output}\n")
         os.system(f"pip uninstall {f} -y")
         text.config(state=NORMAL)
         output = subprocess.getstatusoutput(
@@ -398,6 +400,9 @@ def uninstall():
 def upgrade():
     try:
         f = user.get()
+        output = subprocess.getstatusoutput(f"echo [/] Upgrading: {f}")
+        text.config(state=NORMAL)
+        text.insert(INSERT, f"{output}\n")
         os.system(f"pip install {f} --upgrade")
         text.config(state=NORMAL)
         output = subprocess.getstatusoutput(f"echo [-] Sucessfully Upgraded: {f}  [Restart Manager to update the list]")
@@ -445,12 +450,24 @@ def test_import():
 def stop_all(event):
     root.destroy()
 
+
+def clear_console(event):
+    text.config(state=NORMAL)
+    text.delete(1.0, END)
+    text.config(state=DISABLED)
+
+def clear_console1():
+    text.config(state=NORMAL)
+    text.delete(1.0, END)
+    text.config(state=DISABLED)
+
 # create a menu
 file_menu = Menu(menubar,tearoff=False)
 file_menu.add_command(label='Auto-Py-To-EXE',command=lambda: command("auto_py_to_exe"), accelerator="| F1")
 file_menu.add_command(label="Update Pacakge List", command=lambda: command("update_package_list"), accelerator="| Ctr+Shift+u")
 file_menu.add_command(label="App Info", command=app_info)
 file_menu.add_separator()
+file_menu.add_command(label="Clear Console", command=clear_console1, accelerator="| Ctrl+x")
 file_menu.add_command(label='Exit',command=root.destroy, accelerator="| Ctrl+q")
 menubar.add_cascade(label="Quick Access",menu=file_menu)
 
@@ -479,6 +496,9 @@ def upgrade2():
     try:
         f = selected_item()
         print(f)
+        output1 = subprocess.getstatusoutput(f"echo [/] Upgrading: {f}")
+        text.config(state=NORMAL)
+        text.insert(INSERT, f"{output1}\n")
         os.system(f"pip install {f} --upgrade")
         text.config(state=NORMAL)
         output1 = subprocess.getstatusoutput(
@@ -495,6 +515,9 @@ def uninstall2():
     try:
         f = selected_item()
         print(f)
+        output1 = subprocess.getstatusoutput(f"echo [/] Uninstalling: {f}")
+        text.config(state=NORMAL)
+        text.insert(INSERT, f"{output1}\n")
         os.system(f"pip uninstall {f} -y")
         text.config(state=NORMAL)
         output1 = subprocess.getstatusoutput(
@@ -735,10 +758,7 @@ var2 = IntVar()
 var3 =IntVar()
 
 
-def clear_console(event):
-    text.config(state=NORMAL)
-    text.delete(1.0, END)
-    text.config(state=DISABLED)
+
 
 
 global cogs

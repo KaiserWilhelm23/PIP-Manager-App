@@ -186,6 +186,7 @@ import json
 import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
+import urllib.request
 
 os.system("clear")
 
@@ -205,10 +206,24 @@ try:
 except Exception as e:
     build_cogs()
 
+jsongithub_link = "https://blaze005.github.io/items.json"
+with urllib.request.urlopen(jsongithub_link) as url: 
+    json_data = json.loads(url.read().decode())
+    vr = json_data["PM-release"]
+
 
 root = ThemedTk(theme='breeze')
 tabControl = Notebook(root)
-root.title("PIP Manager App V.4.0")
+
+
+
+if vr != version1:
+    root.title(f"PIP Manager App {version1} (Update available: {vr})")
+
+else:
+    root.title(f"PIP Manager App {version1}")
+
+
 root.geometry("488x390")
 root.resizable(0, 0)
 

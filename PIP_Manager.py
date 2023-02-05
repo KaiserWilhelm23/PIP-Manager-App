@@ -633,6 +633,10 @@ try:
     file = open('output.txt', 'r')
 except:
     print("Cannot find file :/")
+    with open('output.txt', 'w') as f:
+        f.write('')
+
+    file = open('output.txt', 'r')
 
 chars = True
 

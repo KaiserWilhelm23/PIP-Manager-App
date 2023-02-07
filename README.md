@@ -19,15 +19,9 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 *All Windows 10 releases work on Windows 11
 
 # Announcements 
-- Version 4 (Windows) is now out 
-- Version 4 adds:
+No new updates for 4.1 except for 4.1.1, Bug fixes 
 
-1. Quick Access Menu bar
-
-2. Update PIP Manager App Source Code | Quick Access -> App Info -> Update 
-
-3. MetaData Tool in the Package List Tab, -> Select Package -> Right click -> Click on Package Info
-
+The linux version will be fully updated soon, likely at the end of the month.
 
 # Version 4 Known Issues: 
 None Currently

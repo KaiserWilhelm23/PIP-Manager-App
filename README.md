@@ -57,7 +57,7 @@ Here are the required packages:
 
 
 
-![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/Capture.PNG?raw=true)
+![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/Capture.png?raw=true)
 
 
 # Devleopers 

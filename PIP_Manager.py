@@ -1,4 +1,4 @@
-version1 = "4.1.1"
+version1 = "4.2"
 
 import os
 import time

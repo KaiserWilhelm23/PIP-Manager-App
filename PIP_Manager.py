@@ -476,11 +476,85 @@ def clear_console1():
     text.delete(1.0, END)
     text.config(state=DISABLED)
 
+def pypi_search():
+    import tkinter as tk
+    import requests
+    from bs4 import BeautifulSoup
+
+    class PyPI_Search_GUI:
+        def __init__(self, root):
+            self.root = root
+            self.root.title('PyPI Package Search BETA')
+            self.root.geometry('500x500')
+
+            self.search_label = tk.Label(self.root, text='Search for PyPI packages:')
+            self.search_label.pack(pady=10)
+
+            self.search_entry = tk.Entry(self.root, width=50)
+            self.search_entry.pack()
+
+            self.search_btn = tk.Button(self.root, text='Search', command=self.search_packages)
+            self.search_btn.pack(pady=10)
+
+            self.packages_listbox = tk.Listbox(self.root, height=20, width=60)
+            self.packages_listbox.pack()
+
+            self.install_btn = tk.Button(self.root, text='Install Selected Packages', command=self.install_packages)
+            self.install_btn.pack(pady=10)
+
+        def search_packages(self):
+        # Clear the listbox
+            self.packages_listbox.delete(0, tk.END)
+
+        # Get the search query from the search entry widget
+            search_query = self.search_entry.get().strip()
+
+        # Make sure the search query is not empty
+            if not search_query:
+                return
+
+        # Build the PyPI search URL
+            search_url = f'https://pypi.org/search/?q={search_query}'
+
+        # Send a GET request to the PyPI search URL and parse the HTML response
+            response = requests.get(search_url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Find all the package search results
+            package_results = soup.find_all('a', {'class': 'package-snippet'})
+
+        # Add each package result to the listbox
+            for package_result in package_results:
+                package_name = package_result.find('span', {'class': 'package-snippet__name'}).text.strip()
+                self.packages_listbox.insert(tk.END, package_name)
+
+        def install_packages(self):
+        # Get the selected package names from the listbox
+            selected_packages = self.packages_listbox.curselection()
+
+        # Make sure at least one package is selected
+            if not selected_packages:
+                return
+
+        # Loop through the selected packages and install each one
+            for index in selected_packages:
+                package_name = self.packages_listbox.get(index)
+                print(f'Installing {package_name}...')
+            # Call the appropriate installation command for the package (e.g. pip install package_name)
+
+    if __name__ == '__main__':
+        root = tk.Tk()
+        app = PyPI_Search_GUI(root)
+        root.mainloop()
+
+
 # create a menu
 file_menu = Menu(menubar,tearoff=False)
 file_menu.add_command(label='Auto-Py-To-EXE',command=lambda: command("auto_py_to_exe"), accelerator="| F1")
 file_menu.add_command(label="Update Pacakge List", command=lambda: command("update_package_list"), accelerator="| Ctr+Shift+u")
+file_menu.add_command(label="PyPI Package Search (BETA)", command=pypi_search)
 file_menu.add_command(label="App Info", command=app_info)
+
 file_menu.add_separator()
 file_menu.add_command(label="Clear Console", command=clear_console1, accelerator="| Ctrl+x")
 file_menu.add_command(label='Exit',command=root.destroy, accelerator="| Ctrl+q")

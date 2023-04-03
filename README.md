@@ -19,7 +19,7 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 *All Windows 10 releases work on Windows 11
 
 # Announcements 
-Version 4.2 adds the PyPI Seach Interface under quick access, this allows user to search all packages on pypi.org without actually visitng the site. You can also download packages from this. 
+Version 4.2 adds the PyPI Seach Interface under quick access, this allows the user to search all packages on pypi.org without actually visitng the site. You can also download packages from this. 
 
 The linux version will be fully updated soon, likely at the end of the month.
 

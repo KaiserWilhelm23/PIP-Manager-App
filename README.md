@@ -1,7 +1,7 @@
 
 <h1 align="center">PIP Manager</h1><div align="center">
   <a href="https://www.python.org">
-    <img src="https://img.shields.io/badge/Python-3.8.6-blue" alt="Python version" />
+    <img src="https://img.shields.io/badge/Python-3.11.4-blue" alt="Python version" />
   </a>
   <a href="https://github.com/blaze005/PIP-Manager-App/releases">
     <img src="https://img.shields.io/badge/Version-4.2-green" alt="Latest version" />

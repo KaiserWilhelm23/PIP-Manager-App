@@ -1,5 +1,32 @@
 version1 = "4.2"
 
+
+import uuid
+import json
+
+# Open the JSON file
+with open('cogs.json', 'r') as file:
+    # Load the JSON data
+    data = json.load(file)
+
+data1 = data["App-ID"]
+
+if data1 == "None":  # Check if the value is None
+    app_id = str(uuid.uuid4())  # Generate a UUID and convert it to a string
+
+    # Update the value of the 'App-ID' key
+    data["App-ID"] = app_id
+
+    # Open the JSON file for writing
+    with open('cogs.json', 'w') as file:
+        # Write the modified data structure back to the file
+        json.dump(data, file)
+
+    print("[OK] ID Generated ")
+
+else:
+    print("[OK] ID already exists.")
+
 import os
 import time
 import sys
@@ -11,7 +38,9 @@ def build_cogs():
         "darkmode": "on",
         "cmd": "off",
         "cli": "off",
-        "install_auto": "yes"
+        "install_auto": "yes",
+        "App-ID": "None"
+
 
     }
 
@@ -327,6 +356,8 @@ def update_package_list():
 def app_info():
     
     import platform
+    from tkinter import Tk, Label
+
 
 
     import urllib.request, json
@@ -335,6 +366,8 @@ def app_info():
     with urllib.request.urlopen(jsongithub_link) as url: 
         json_data = json.loads(url.read().decode())
         vr = json_data["PM-release"]
+
+    
     
     info_win = Tk()
     info_win.title("App Info")
@@ -345,7 +378,10 @@ def app_info():
 
 #
 # Update function to allow the user to update the app
+
 #
+    
+
     def update():
         import requests
         from tkinter.messagebox import showinfo
@@ -361,13 +397,21 @@ def app_info():
             sys.exit()
 
 
+    with open('cogs.json', 'r') as file:
+    # Load the JSON data
+        data = json.load(file)
+        data1 = data["App-ID"]
+       
 
+    
     Label(info_win, text="PIP Manger App Info").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')
     Label(info_win, text=f"App Version: {version1}").pack()
+    label = Label(info_win, text=f"App-ID: {data1[:8]}").pack()
     Label(info_win, text=f"Current Release: {vr}").pack()
     Label(info_win, text=f"Python Version: {platform.python_version()}").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')
+
 
     if vr != version1:
         Button(info_win, text="Update", command=update).pack()
@@ -480,6 +524,7 @@ def pypi_search():
     import tkinter as tk
     import requests
     from bs4 import BeautifulSoup
+    from tkinter import messagebox
 
     class PyPI_Search_GUI:
         def __init__(self, root):
@@ -540,6 +585,8 @@ def pypi_search():
             for index in selected_packages:
                 package_name = self.packages_listbox.get(index)
                 print(f'Installing {package_name}...')
+                os.system(f"pip install {package_name}")
+                messagebox.showinfo(title="Install Complete", message=f"Installed {package_name}")
             # Call the appropriate installation command for the package (e.g. pip install package_name)
 
     if __name__ == '__main__':

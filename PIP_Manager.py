@@ -1,4 +1,4 @@
-version1 = "4.2"
+version1 = "5.0 Beta"
 
 
 import uuid
@@ -178,6 +178,8 @@ try:
     from subprocess import Popen, PIPE
     import json
     import win32gui, win32con
+    import requests
+    from bs4 import BeautifulSoup
 
 
 except Exception as e:
@@ -216,6 +218,9 @@ import win32gui, win32con
 import pkg_resources
 from tkinter import messagebox
 import urllib.request
+import requests
+from bs4 import BeautifulSoup
+import threading
 
 os.system("clear")
 
@@ -232,13 +237,21 @@ try:
         print("[]")
     print(cogs1)
 
+
 except Exception as e:
     build_cogs()
+
+
+
 
 jsongithub_link = "https://blaze005.github.io/items.json"
 with urllib.request.urlopen(jsongithub_link) as url: 
     json_data = json.loads(url.read().decode())
     vr = json_data["PM-release"]
+
+os.system("clear")
+print("Loading PyPI Data Base. This will take some time")
+
 
 
 root = ThemedTk(theme='breeze')
@@ -277,9 +290,42 @@ lb1.pack(pady=15)
 lb2 = Label(tab1, text="Type in Module Name:").pack()
 
 global user
-user = Entry(tab1)
+user = Combobox(tab1, width=25, height=5)
 user.pack(pady=10)
 
+# Create a list to store package names
+package_names = []
+
+def fetch_package_names():
+    try:
+        # Fetch package names from PyPI
+        user.config(state=DISABLED)
+        response = requests.get('https://pypi.org/simple/')
+        soup = BeautifulSoup(response.content, 'html.parser')
+        links = soup.find_all('a')
+        package_names.extend([link.text for link in links if link.text])
+        user.config(state=NORMAL)
+    except Exception as e:
+        print(e)
+
+def fetch_package_names_thread():
+    fetch_thread = threading.Thread(target=fetch_package_names)
+    fetch_thread.start()
+
+def filter_package_names(event=None):
+    module_name = user.get()
+    if module_name:
+        # Filter package names based on user input
+        suggestions = [pkg for pkg in package_names if pkg.startswith(module_name)]
+        user['values'] = tuple(suggestions)
+    else:
+        user['values'] = ()
+
+def display_menu(event):
+    user.event_generate("<Down>")
+
+# Start fetching package names in the background
+fetch_package_names_thread()
 
 # Core Codes
 def command(command):
@@ -378,7 +424,6 @@ def app_info():
 
 #
 # Update function to allow the user to update the app
-
 #
     
 
@@ -436,6 +481,8 @@ def install():
         _thread.exit()  # Exit running thread cuz it is done
     except Exception as e:
         print(e)
+
+
 
 
 def uninstall():
@@ -520,86 +567,12 @@ def clear_console1():
     text.delete(1.0, END)
     text.config(state=DISABLED)
 
-def pypi_search():
-    import tkinter as tk
-    import requests
-    from bs4 import BeautifulSoup
-    from tkinter import messagebox
-
-    class PyPI_Search_GUI:
-        def __init__(self, root):
-            self.root = root
-            self.root.title('PyPI Package Search BETA')
-            self.root.geometry('500x500')
-
-            self.search_label = tk.Label(self.root, text='Search for PyPI packages:')
-            self.search_label.pack(pady=10)
-
-            self.search_entry = tk.Entry(self.root, width=50)
-            self.search_entry.pack()
-
-            self.search_btn = tk.Button(self.root, text='Search', command=self.search_packages)
-            self.search_btn.pack(pady=10)
-
-            self.packages_listbox = tk.Listbox(self.root, height=20, width=60)
-            self.packages_listbox.pack()
-
-            self.install_btn = tk.Button(self.root, text='Install Selected Packages', command=self.install_packages)
-            self.install_btn.pack(pady=10)
-
-        def search_packages(self):
-        # Clear the listbox
-            self.packages_listbox.delete(0, tk.END)
-
-        # Get the search query from the search entry widget
-            search_query = self.search_entry.get().strip()
-
-        # Make sure the search query is not empty
-            if not search_query:
-                return
-
-        # Build the PyPI search URL
-            search_url = f'https://pypi.org/search/?q={search_query}'
-
-        # Send a GET request to the PyPI search URL and parse the HTML response
-            response = requests.get(search_url)
-            soup = BeautifulSoup(response.content, 'html.parser')
-
-        # Find all the package search results
-            package_results = soup.find_all('a', {'class': 'package-snippet'})
-
-        # Add each package result to the listbox
-            for package_result in package_results:
-                package_name = package_result.find('span', {'class': 'package-snippet__name'}).text.strip()
-                self.packages_listbox.insert(tk.END, package_name)
-
-        def install_packages(self):
-        # Get the selected package names from the listbox
-            selected_packages = self.packages_listbox.curselection()
-
-        # Make sure at least one package is selected
-            if not selected_packages:
-                return
-
-        # Loop through the selected packages and install each one
-            for index in selected_packages:
-                package_name = self.packages_listbox.get(index)
-                print(f'Installing {package_name}...')
-                os.system(f"pip install {package_name}")
-                messagebox.showinfo(title="Install Complete", message=f"Installed {package_name}")
-            # Call the appropriate installation command for the package (e.g. pip install package_name)
-
-    if __name__ == '__main__':
-        root = tk.Tk()
-        app = PyPI_Search_GUI(root)
-        root.mainloop()
 
 
 # create a menu
 file_menu = Menu(menubar,tearoff=False)
 file_menu.add_command(label='Auto-Py-To-EXE',command=lambda: command("auto_py_to_exe"), accelerator="| F1")
 file_menu.add_command(label="Update Pacakge List", command=lambda: command("update_package_list"), accelerator="| Ctr+Shift+u")
-file_menu.add_command(label="PyPI Package Search (BETA)", command=pypi_search)
 file_menu.add_command(label="App Info", command=app_info)
 
 file_menu.add_separator()
@@ -702,7 +675,6 @@ Python Version Required: {metadata.metadata(pkg)['Requires-Python']}
 
 def Scankey(event):
     val = event.widget.get()
-    print(val)
 
     if val == '':
         data = sortedPackages
@@ -771,7 +743,6 @@ while chars:
 
     outdatedPackages.append(line[0])
 
-    print(line[0])
 
 try:
     outdatedPackages.pop(0)
@@ -992,8 +963,12 @@ def quick_upl(event):
 root.bind("<Control-Key-q>", stop_all)
 root.bind("<Control-Key-x>", clear_console)
 root.bind("<Control-U>", quick_upl)
+user.bind("<Return>", display_menu)
+user.bind("<KeyRelease>", filter_package_names)
 
 
 
+
+root.after(0, lambda: user.focus())
 
 root.mainloop()

@@ -64,9 +64,6 @@ Here are the required packages:
 
 Lead Python Dev: Will Payne 
 
-Co Lead Python Dev: Cole Bohanon
-
-Maintainer: Samuel T
 
 # Contributing
 Contributions are always welcome - just:

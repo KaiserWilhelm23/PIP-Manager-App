@@ -23,8 +23,9 @@ Version 5.0 when fully released will have built in searching of the PyPI databas
 
 The linux version will be fully updated soon, likely at the end of the month.
 
-# Version 4 Known Issues: 
-- Issue with COGS.json causes immediate crash. 
+# Version 5.0 BETA Known Issues: 
+- [Errno 10054] An existing connection was forcibly closed by the remote host. (Fixing NOW)
+
 
 # Available Features
 

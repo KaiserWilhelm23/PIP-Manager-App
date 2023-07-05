@@ -24,8 +24,7 @@ Version 4.2 adds the PyPI Seach Interface under quick access, this allows the us
 The linux version will be fully updated soon, likely at the end of the month.
 
 # Version 4 Known Issues: 
-None Currently
-
+- Issue with COGS.json causes immediate crash. 
 
 # Available Features
 

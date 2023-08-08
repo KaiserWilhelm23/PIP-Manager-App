@@ -23,7 +23,7 @@ Version 5.0 when fully released will have built in searching of the PyPI databas
 
 Version 5 is on hold until I get time to work on it. Version 5 will have a total code rewrite. I am also thinking about stopping the project here anyway.  
 
-The linux version will be fully updated soon, likely at the end of the month.
+The linux version will be fully updated soon, likely after Version 5. 
 
 # Version 5.0 BETA Known Issues: 
 - [Errno 10054] An existing connection was forcibly closed by the remote host. (Fixing NOW)

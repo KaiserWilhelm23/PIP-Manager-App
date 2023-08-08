@@ -21,6 +21,8 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 # Announcements 
 Version 5.0 when fully released will have built in searching of the PyPI database. It will also be available for immediate intall via ```pip install pip-manager``` 
 
+Version 5 is on hold until I get time to work on it. Version 5 will have a total code rewrite. I am also thinking about stopping the project here anyway.  
+
 The linux version will be fully updated soon, likely at the end of the month.
 
 # Version 5.0 BETA Known Issues: 

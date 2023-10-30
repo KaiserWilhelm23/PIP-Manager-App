@@ -26,7 +26,7 @@ Version 5 is on hold until I get time to work on it. Version 5 will have a total
 The linux version will be fully updated soon, likely after Version 5. 
 
 # Version 5.0 BETA Known Issues: 
-- [Errno 10054] An existing connection was forcibly closed by the remote host. (Fixing NOW)
+- Will sometimes not work.... Errors do pop up. 
 
 
 # Available Features

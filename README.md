@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/Python-3.11.4-blue" alt="Python version" />
   </a>
   <a href="https://github.com/blaze005/PIP-Manager-App/releases">
-    <img src="https://img.shields.io/badge/Version-4.3-green" alt="Latest version" />
+    <img src="https://img.shields.io/badge/Version-5.0-green" alt="Latest version" />
   </a>
   <a href="https://github.com/blaze005/PIP-Manager-App/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License" />

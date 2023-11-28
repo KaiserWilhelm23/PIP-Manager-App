@@ -1,13 +1,8 @@
-version1 = "5.0"
-
-
-import uuid
+version1 = "5.0.1"
 import json
 import os
 import time
 import sys
-
-#os.system("pip list -o > output.txt")
 
 def build_cogs():
     dinct = {
@@ -15,9 +10,7 @@ def build_cogs():
         "cmd": "off",
         "cli": "off",
         "install_auto": "yes",
-        "App-ID": "None"
-
-
+        "pypi": "off"
     }
 
     cogs = json.dumps(dinct, indent=2)
@@ -36,6 +29,11 @@ except Exception as e:
     print(f"ERROR: {e} Building Cogs...")
     build_cogs()
     
+
+################################################################################
+#CLI
+################################################################################
+
 
 def cli():
     
@@ -148,7 +146,9 @@ def cli():
         cli()
 
 
-
+################################################################################
+#GUI
+################################################################################
 
 
 try:
@@ -229,29 +229,33 @@ except Exception as e:
 
 
 
+try:
+    jsongithub_link = "https://blaze005.github.io/items.json"
+    with urllib.request.urlopen(jsongithub_link) as url: 
+        json_data = json.loads(url.read().decode())
+        vr = json_data["PM-release"]
+    
+except Exception as e:
+    print(e)
+    vr = "ERROR [NoI]"
+    print("No Connection to https://blaze005.github.io/items.json")
 
-jsongithub_link = "https://blaze005.github.io/items.json"
-with urllib.request.urlopen(jsongithub_link) as url: 
-    json_data = json.loads(url.read().decode())
-    vr = json_data["PM-release"]
-
-os.system("clear")
-print("Loading PyPI Data Base. This will take some time")
 
 
 
 root = ThemedTk(theme='breeze')
-tabControl = Notebook(root)
-
-
 
 if vr != version1:
     root.title(f"PIP Manager App {version1} (Update available: {vr})")
+    if vr == "ERROR [NoI]":
+        root.title(f"PIP Manager App (https://blaze005.github.io/items.json, Out of Reach)")
+        
+
 
 else:
     root.title(f"PIP Manager App {version1}")
 
-
+tabControl = Notebook(root)
 root.geometry("488x390")
 root.resizable(0, 0)
 
@@ -282,17 +286,32 @@ user.pack(pady=10)
 # Create a list to store package names
 package_names = []
 
+if vr == "ERROR [NoI]":
+     messagebox.showerror(title="ERROR [NoI]: Internet Error", message="Unable to connect to https://blaze005.github.io/items.json")
+
 def fetch_package_names():
-    try:
-        # Fetch package names from PyPI
-        user.config(state=DISABLED)
-        response = requests.get('https://pypi.org/simple/')
-        soup = BeautifulSoup(response.content, 'html.parser')
-        links = soup.find_all('a')
-        package_names.extend([link.text for link in links if link.text])
-        user.config(state=NORMAL)
-    except Exception as e:
-        print(e)
+    
+    with open("src/cogs.json", 'r') as f:
+        cogs1 = json.loads(f.read())
+
+        if cogs1["pypi"] == "on":
+            try:
+            # Fetch package names from PyPI
+                print("Fetching Packages from PyPI.....")
+                user.config(state=DISABLED)
+                response = requests.get('https://pypi.org/simple/')
+                soup = BeautifulSoup(response.content, 'html.parser')
+                links = soup.find_all('a')
+                package_names.extend([link.text for link in links if link.text])
+                user.config(state=NORMAL)
+            except Exception as e:
+                print(e)
+
+        else:
+            print("Automatic PyPI Conection Killed")
+            pass
+
+    print(package_names)
 
 def fetch_package_names_thread():
     fetch_thread = threading.Thread(target=fetch_package_names)
@@ -394,19 +413,22 @@ def app_info():
 
     import urllib.request, json
 
-    jsongithub_link = "https://blaze005.github.io/items.json"
-    with urllib.request.urlopen(jsongithub_link) as url: 
-        json_data = json.loads(url.read().decode())
-        vr = json_data["PM-release"]
-
+    try:
+        jsongithub_link = "https://blaze005.github.io/items.json"
+        with urllib.request.urlopen(jsongithub_link) as url: 
+            json_data = json.loads(url.read().decode())
+            vr = json_data["PM-release"]
+    
+    except Exception as e:
+        print(e)
+        vr = "ERROR [NoI]"
+        print("No Connection to https://blaze005.github.io/items.json")
     
     
     info_win = Tk()
     info_win.title("App Info")
     info_win.geometry("300x250")
     info_win.resizable(0, 0)
-
-
 
 #
 # Update function to allow the user to update the app
@@ -852,7 +874,8 @@ settings_frame.pack()
 
 var1 = IntVar()
 var2 = IntVar()
-var3 =IntVar()
+var3 = IntVar()
+var4 = IntVar()
 
 
 
@@ -870,7 +893,7 @@ try:
         elif cogs["darkmode"] == "off":
             root.config(theme='breeze')
             var1.set(0)
-        print("[]")
+        print(f"[Loaded Darkmode Data] ")
         if cogs["cmd"] == 'on':
             win32gui.ShowWindow(the_program_to_hide, win32con.SW_SHOW)
             var2.set(0)
@@ -878,6 +901,16 @@ try:
             win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
             var2.set(1)
             turn_cmd_off()
+        print("[Loaded CMD Info] ")
+        if cogs["pypi"] == 'on':
+            win32gui.ShowWindow(the_program_to_hide, win32con.SW_SHOW)
+            var4.set(0)
+        elif cogs['pypi'] == 'off':
+            win32gui.ShowWindow(the_program_to_hide, win32con.SW_HIDE)
+            var4.set(1)
+        print("[Loaded PyPI Info]")
+        
+
     print(cogs)
 
 except Exception as e:
@@ -903,7 +936,28 @@ def cli_mode():
         with open("src/cogs.json", "w") as jsonFile:
             json.dump(data, jsonFile)
 
+
+def pypi_off():
+    if var4.get() == 1:
         
+        with open('src/cogs.json', 'r') as f:
+            data = json.load(f)
+        data['pypi'] = 'off'
+
+        with open("src/cogs.json", "w") as jsonFile:
+            json.dump(data, jsonFile)
+
+        
+        
+    elif var4.get() == 0:
+        with open('src/cogs.json', 'r') as f:
+            data = json.load(f)
+
+        data['pypi'] = 'on'
+
+        with open("src/cogs.json", "w") as jsonFile:
+            json.dump(data, jsonFile)
+        messagebox.showwarning(title="Performance Issues", message="The apps performance may seem slower when this is enabled. RAM will also go up to 1 GIG of usage.")
 
 
 dark_mode1 = Checkbutton(settings_frame, text="Darkmode", variable=var1, onvalue=1, offvalue=0, command=dark_mode).grid(
@@ -914,9 +968,13 @@ cmd_off = Checkbutton(settings_frame, text="CMD Off", variable=var2, onvalue=1, 
 
 cli_mode1 = Checkbutton(settings_frame, text="CLI",variable=var3, onvalue=1, offvalue=0, command=cli_mode).grid(
     row = 3, column=3)
-autoexe = Button(settings_frame, text="Auto Py to EXE", command=lambda: command("auto_py_to_exe")).grid(row=4, column=3)
 
-app_info = Button(settings_frame, text="App Info", command=app_info).grid(row=5, column=3)
+uato_pypi = Checkbutton(settings_frame, text="Turn Off PyPI DB",variable=var4, onvalue=1, offvalue=0, command=pypi_off).grid(
+    row = 4, column=3)
+
+autoexe = Button(settings_frame, text="Auto Py to EXE", command=lambda: command("auto_py_to_exe")).grid(row=5, column=3)
+
+app_info = Button(settings_frame, text="App Info", command=app_info).grid(row=6, column=3)
 
 
 

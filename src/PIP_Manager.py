@@ -1,4 +1,4 @@
-version1 = "5.0 Beta"
+version1 = "5.0"
 
 
 import uuid

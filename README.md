@@ -42,6 +42,7 @@ Requires 1.2 Gigs of RAM
 - MetaData Tool 
 - Quick Access Menu Bar
 - Updating PIP Manager from within the GUI
+- Connects to the PyPI database automatically to easily find a package and install (does cause slow GUI response when app starts)
 
 
 
@@ -56,7 +57,7 @@ Here are the required packages:
 
 
 
-![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/Capture.png?raw=true)
+![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/src/Capture.png?raw=true)
 
 
 # Devleopers 

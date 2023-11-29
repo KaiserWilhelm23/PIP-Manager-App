@@ -20,7 +20,6 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 
 # Announcements 
 Version 5 out!!!! 
-Requires 1.2 Gigs of RAM 
 
 # Version 5.0 BETA Known Issues: 
 - Will sometimes not work.... Errors do pop up. 

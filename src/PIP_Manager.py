@@ -1,4 +1,4 @@
-version1 = "5.0.1"
+version1 = "5.0"
 import json
 import os
 import time
@@ -241,7 +241,7 @@ except Exception as e:
     print("No Connection to https://blaze005.github.io/items.json")
 
 
-
+print(f"Newest Release: {vr}")
 
 root = ThemedTk(theme='breeze')
 
@@ -448,19 +448,12 @@ def app_info():
         
         if f == "ok":
             sys.exit()
-
-
-    with open('src/cogs.json', 'r') as file:
-    # Load the JSON data
-        data = json.load(file)
-        data1 = data["App-ID"]
        
 
-    
     Label(info_win, text="PIP Manger App Info").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')
     Label(info_win, text=f"App Version: {version1}").pack()
-    label = Label(info_win, text=f"App-ID: {data1[:8]}").pack()
+    label = Label(info_win, text=f"App-ID: Disabled").pack()
     Label(info_win, text=f"Current Release: {vr}").pack()
     Label(info_win, text=f"Python Version: {platform.python_version()}").pack()
     Separator(info_win ,orient='horizontal').pack(fill='x')

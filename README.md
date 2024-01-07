@@ -23,6 +23,7 @@ We will be skipping all 5.x updates and go staright 6.0
 6.0 is getting rewritten!!! Using PyQT5
 
 Here are some sneak peaks: 
+
 ![PIP](https://media.discordapp.net/attachments/1048031033997676596/1193630486443077824/image.png?ex=65ad6a04&is=659af504&hm=a052bef2cee31bfb5c498ff12b75ff2b4f9d877d6611be587db799fab6f0a1b0&=&format=webp&quality=lossless&width=742&height=591)
 
 ![LIST](https://media.discordapp.net/attachments/1048031033997676596/1193630672082981046/image.png?ex=65ad6a30&is=659af530&hm=8e85bfe0cd61a2818acf36bb1c13629e4e8049df27b93e9b8611fc8dab194d7f&=&format=webp&quality=lossless&width=737&height=591)

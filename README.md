@@ -19,8 +19,10 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 *All Windows 10 releases work on Windows 11
 
 # Announcements 
-We will be skipping all 5.x updates and go staright 6.0 
+We will be skipping all 5.x updates and go staright 6.0,
 6.0 is getting rewritten!!! Using PyQT5
+
+6.0 will be faster than ever, 3 second reduction in boot time, no GUI tearing, and better console codes. 
 
 Here are some sneak peaks: 
 

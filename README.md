@@ -19,9 +19,21 @@ PIP Manager is designed to make Python Package handling easier by just a click o
 *All Windows 10 releases work on Windows 11
 
 # Announcements 
-Version 5 out!!!! 
+We will be skipping all 5.x updates and go staright 6.0 
+6.0 is getting rewritten!!! Using PyQT5
 
-# Version 5.0 BETA Known Issues: 
+Here are some sneak peaks: 
+![PIP](https://media.discordapp.net/attachments/1048031033997676596/1193630486443077824/image.png?ex=65ad6a04&is=659af504&hm=a052bef2cee31bfb5c498ff12b75ff2b4f9d877d6611be587db799fab6f0a1b0&=&format=webp&quality=lossless&width=742&height=591)
+
+![LIST](https://media.discordapp.net/attachments/1048031033997676596/1193630672082981046/image.png?ex=65ad6a30&is=659af530&hm=8e85bfe0cd61a2818acf36bb1c13629e4e8049df27b93e9b8611fc8dab194d7f&=&format=webp&quality=lossless&width=737&height=591)
+
+
+![NEW PYPI](https://media.discordapp.net/attachments/1048031033997676596/1193630778769293322/image.png?ex=65ad6a4a&is=659af54a&hm=39d75ead10ece0a06351d3de4fe5431a31b073a051f7cf2621908b5edd52c5e8&=&format=webp&quality=lossless&width=747&height=591)
+
+Abouve is something new, the PyPI tab is a "web browser" to search the PyPI website without needing to use chrome.
+
+
+# Version 5.0 Known Issues: 
 - Will sometimes not work.... Errors do pop up. 
 
 
@@ -53,11 +65,6 @@ Here are the required packages:
 ```ttkthemes```
 
 ```win32gui & win32con```
-
-
-
-![Alt Text](https://github.com/blaze005/PIP-Manager-App/blob/main/src/Capture.png?raw=true)
-
 
 # Devleopers 
 
